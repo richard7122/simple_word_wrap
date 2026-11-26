@@ -37,3 +37,10 @@ width returns the input split into lines, since there is no wrapping to do.
 
 `width` is the total column budget for each output line, including its
 indentation. Both functions raise `TypeError` if `width` is not an `int`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
